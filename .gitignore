@@ -1,3 +1,6 @@
+#Files with a ~ at back
+*~
+
 # Compiled Object files
 *.slo
 *.lo
