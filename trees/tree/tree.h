@@ -26,26 +26,47 @@ class Tree
 {
 private:
   Node* root;
+
+  void PrintTree(Node* node)
+  {
+    if(node == NULL)
+      return;
+    else
+      {
+	PrintTree(node->left);
+
+	if(node != NULL)
+	  {
+	    cout << node->data << "\t";
+      
+	    PrintTree(node->right);	
+	  }
+      }
+  }
+
 public:
+  Tree()
+	{
+	  root = NULL;
+	}
+
    Node* AddNode(int data)
   {
-    Node* newNode = new Node(data, NULL, NULL);
-    AddNode(root, newNode);
+	   AddNode(root, data);
   }
   
-  void AddNode(Node* target, Node* newNode)
+  void AddNode(Node*& target, int data)
   {
     if(target == NULL)
     {
-      target = newNode;
-      return;
+      target = new Node(data, NULL, NULL);
     }
     else
     {
-      if(newNode->data < target->data)
-	AddNode(target->left, newNode);
+      if(data < target->data)
+    	  AddNode(target->left, data);
       else
-	AddNode(target->right, newNode);
+    	  AddNode(target->right, data);
     }
       
   }
@@ -57,23 +78,31 @@ public:
   
   bool HasItem(Node* node, int item)
   {
-    if(node == NULL)
-      {
-	return false;
-      }
-    else
-      {
-	if(item < node->data)
+	  if(node == NULL)
 	  {
-	    return HasItem(node->left, item);
+		  return false;
 	  }
-	else
+	  else
 	  {
-	    return HasItem(node->right, item);
+		  if(item == node->data)
+		  {
+			  return true;
+		  }
+		  else if(item < node->data)
+		  {
+			  return HasItem(node->left, item);
+		  }
+		  else
+		  {
+			  return HasItem(node->right, item);
+		  }
 	  }
-      }
   }
   
+  void PrintTree()
+  {
+    PrintTree(root);
+  }
 };
 
 #endif
