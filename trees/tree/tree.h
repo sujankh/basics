@@ -44,6 +44,15 @@ private:
       }
   }
 
+  int GetSize(Node* node)
+  {
+    if(node == NULL)
+      return 0;
+    else
+      return 1 + GetSize(node->left) + GetSize(node->right);
+  }
+
+
 public:
   Tree()
 	{
@@ -102,6 +111,11 @@ public:
   void PrintTree()
   {
     PrintTree(root);
+  }
+
+  int GetSize()
+  {
+    return GetSize(root);
   }
 };
 
