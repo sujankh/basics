@@ -28,5 +28,13 @@ int main()
   
   cout << "Post order: \n";
   tree.PrintPostOrder();
-
+  
+  cout << endl;
+  cout << "Has Sum 25: " << tree.HasPathSum(25) << endl;
+  /*  cout << "Has Sum 20: " << tree.HasPathSum(20) << endl;
+  cout << "Has Sum 11: " << tree.HasPathSum(11) << endl;
+  */cout << "Has Sum 7: " << tree.HasPathSum(7) << endl;
+  /* cout << "Has Sum 8: " << tree.HasPathSum(8) << endl;
+  cout << "Has Sum 0: " << tree.HasPathSum(0) << endl;
+  */
 }

@@ -72,6 +72,29 @@ private:
      }
  }
 
+ bool HasPathSum(Node* node, int sum)
+ {
+
+   cout << "HasPathSum( Node: ";
+
+  if (node == NULL)    
+    cout << "NULL";
+  else
+    cout << node->data;
+
+  cout << ", sum =  " << sum << ")" << endl;
+
+   if(node == NULL)
+     {
+       if(sum == 0)
+	 return true;
+       else
+	 return false;
+     }
+
+   return HasPathSum(node->left, sum - node->data) || HasPathSum(node->right, sum - node->data);     
+ }
+
 public:
   Tree()
 	{
@@ -159,6 +182,11 @@ public:
    void PrintPostOrder()
    {
      PrintPostOrder(root);
+   }
+
+   bool HasPathSum(int sum)
+   {
+     return HasPathSum(root, sum);
    }
 
 };
