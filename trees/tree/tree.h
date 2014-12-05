@@ -44,17 +44,33 @@ private:
       }
   }
 
-  int TraverseTree(Node* currentNode)
+ int GetSize(Node* node)
   {
-    if(currentNode == NULL)
-      {
-	return 0;
-      }
+    if(node == NULL)
+      return 0;
     else
-      {
-	return 1 + TraverseTree(currentNode->left) + TraverseTree(currentNode->right);
-      }
+      return 1 + GetSize(node->left) + GetSize(node->right);
   }
+
+ int MaxDepth(Node *node)
+  {
+    if(node == NULL)
+      return 0;
+    else 
+      return max(1 + MaxDepth(node->left), 1 + MaxDepth(node->right));
+  }
+
+ void PrintPostOrder(Node* node)
+ {
+   if(node == NULL)
+     return;
+   else
+     {
+       PrintPostOrder(node->left);
+       PrintPostOrder(node->right);
+       cout << node->data << "\t";
+     }
+ }
 
 public:
   Tree()
@@ -116,10 +132,35 @@ public:
     PrintTree(root);
   }
 
-  int GetNodesCount()
+  int GetSize()
   {
-    return TraverseTree(root);
-  }  
+    return GetSize(root);
+  }
+
+   int MaxDepth()
+  {
+    return MaxDepth(root);
+  }
+  
+   int MinValue()
+   {
+     Node* currentNode = root;
+     int minVal;
+     
+     while(currentNode != NULL)
+       {
+	 minVal = currentNode->data;
+	 currentNode = currentNode->left;
+       }
+
+     return minVal;
+   }
+
+   void PrintPostOrder()
+   {
+     PrintPostOrder(root);
+   }
+
 };
 
 #endif
