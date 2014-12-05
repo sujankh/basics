@@ -19,4 +19,6 @@ int main()
 
   cout << endl << tree.HasItem(5) << endl;
   cout << tree.HasItem(32) << endl;
+
+  cout << "Total items: " << tree.GetNodesCount() << endl;
 }

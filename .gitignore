@@ -1,5 +1,6 @@
 #Files with a ~ at back
 *~
+*.bin
 
 # Compiled Object files
 *.slo

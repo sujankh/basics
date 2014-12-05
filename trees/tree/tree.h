@@ -44,6 +44,18 @@ private:
       }
   }
 
+  int TraverseTree(Node* currentNode)
+  {
+    if(currentNode == NULL)
+      {
+	return 0;
+      }
+    else
+      {
+	return 1 + TraverseTree(currentNode->left) + TraverseTree(currentNode->right);
+      }
+  }
+
 public:
   Tree()
 	{
@@ -103,6 +115,11 @@ public:
   {
     PrintTree(root);
   }
+
+  int GetNodesCount()
+  {
+    return TraverseTree(root);
+  }  
 };
 
 #endif
