@@ -14,6 +14,7 @@ struct Node
 					  left(left),
 					  right(right)
   {
+    cout << "Hello there" << endl;
   }
   
   Node()
