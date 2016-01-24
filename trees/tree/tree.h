@@ -4,6 +4,8 @@
 #include <iostream>
 using namespace std;
 
+#include <vector>
+
 struct Node
 {
   int data;
@@ -14,7 +16,7 @@ struct Node
 					  left(left),
 					  right(right)
   {
-    cout << "Hello there" << endl;
+
   }
   
   Node()
@@ -61,6 +63,77 @@ private:
       return max(1 + MaxDepth(node->left), 1 + MaxDepth(node->right));
   }
 
+ 
+ vector<vector<int> > getAllPaths(Node* node)
+   {
+     vector<vector<int> >  pathsFromNode;
+
+     if(node->left == NULL && node->right == NULL)
+       {
+	 vector<int> currentPath;
+	 currentPath.push_back(node->data);
+
+	 pathsFromNode.push_back(currentPath);
+       }
+     else
+       {
+     
+	 if(node->left != NULL)
+	   {
+	     vector<vector<int> > childPaths = getAllPaths(node->left);
+	     for(int i = 0; i < childPaths.size(); ++i)
+	       {
+		 vector<int> currentPath = childPaths[i];
+
+		 currentPath.insert(currentPath.begin(), node->data);
+
+		 pathsFromNode.push_back(currentPath);
+	       }
+	   }
+
+	 if(node->right != NULL)
+	   {
+	     vector<vector<int> > childPaths = getAllPaths(node->right);
+
+	     for(int i = 0; i < childPaths.size(); ++i)
+	       {
+		 vector<int> currentPath = childPaths[i];
+
+		 currentPath.insert(currentPath.begin(), node->data);
+
+		 pathsFromNode.push_back(currentPath);
+	       }
+	   }
+
+       }
+
+     return pathsFromNode;
+     
+   }
+
+ void mirror(Node* node)
+ {
+   if(node->left == NULL && node->right == NULL)
+     return;
+
+   mirror(node->left);
+   mirror(node->right);
+
+   Node* tmp = node->left;
+   node->left = node->right;
+   node->right = tmp;
+ }
+
+ bool sameTree(Node *t1, Node *t2)
+ {
+   if(t1 == NULL || t2 == NULL)
+     return t1 == t2;
+   else if(t1->data != t2->data)
+     return false;
+
+   return sameTree(t1->left, t2->left) && sameTree(t1->right, t2->right);   
+ }
+ 
  void PrintPostOrder(Node* node)
  {
    if(node == NULL)
@@ -75,16 +148,6 @@ private:
 
  bool HasPathSum(Node* node, int sum)
  {
-
-   cout << "HasPathSum( Node: ";
-
-  if (node == NULL)    
-    cout << "NULL";
-  else
-    cout << node->data;
-
-  cout << ", sum =  " << sum << ")" << endl;
-
    if(node == NULL)
      {
        if(sum == 0)
@@ -106,7 +169,17 @@ public:
   {
 	   AddNode(root, data);
   }
-  
+
+   void mirror()
+   {
+     mirror(root);
+   }
+
+   bool sameTree(Tree t2)
+   {
+     return sameTree(root, t2.root);
+   }
+   
   void AddNode(Node*& target, int data)
   {
     if(target == NULL)
@@ -123,6 +196,11 @@ public:
       
   }
 
+  vector<vector<int> > getAllPaths()
+    {
+      return getAllPaths(root);
+    }
+  
   bool HasItem(int item)
   {
     return HasItem(root, item);
